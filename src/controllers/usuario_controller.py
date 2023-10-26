@@ -13,11 +13,11 @@ def mostrar_userinfo():
         Usuario.id)).group_by(Usuario.city).all()
     cant_sedes = len(sedes)
     print("La cantidad de sedes es:", sedes[2][1])
-    return render_template("user-info.html", total_usuarios=cant_usuarios, total_sedes=cant_sedes)
+    return render_template("info.html", total_usuarios=cant_usuarios, total_sedes=cant_sedes)
 
 
-def mostrar_layout():
-    return render_template("layout.html")
+def mostrar_landing():
+    return render_template("landing.html")
 
 
 def mostrar_masinfo():

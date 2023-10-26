@@ -1,0 +1,24 @@
+{% extends "/layouts/layout.html" %}{% block aditional %}
+<div class="info">
+  <section class="sections">
+    <span class="contador" data-val="{{total_usuarios}}">0</span>
+    <h1>Usuarios del campus de la Universidad del Valle</h1>
+    <p>
+      Inspired by the new Android Lollipop UI, the navbar gets colored
+      dynamically with a tinted background-color of each following section.
+    </p>
+  </section>
+  <section class="sections">
+    <span class="contador" data-val="{{total_sedes}}">0</span>
+    <h1>Sedes regionales de la Universidad del Valle</h1>
+    <p>
+      By the way each section is displayed full screen just by one line of css.
+      You can use viewport untis for flexible heights and widths.
+    </p>
+  </section>
+</div>
+<div class="moreinfo">
+  <a href="/info"><i class="fa-solid fa-circle-arrow-right fa-2xl"></i></a>
+</div>
+<script src="../../static/script.js"></script>
+{% endblock %}
