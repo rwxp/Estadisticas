@@ -12,7 +12,7 @@ def create_app():
     app.register_blueprint(usuarios_blueprint)
 
     db.init_app(app)
-    return app 
+    return app
 
 app = create_app()
 # Config setup
