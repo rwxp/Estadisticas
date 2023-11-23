@@ -1,14 +1,12 @@
-let valueDisplays = document.querySelectorAll(".contador");
-let interval = 5000; // 5 seconds animation
 
-valueDisplays.forEach((valueDisplay)=>{
-    let startValue = 0;
-    let endValue = parseInt(valueDisplay.getAttribute("data-val"))
-    let counter = setInterval(function(){
-        startValue += 1;
-        valueDisplay.textContent = startValue;
-        if(startValue == endValue){
-            clearInterval(counter);
-        }
-    }, 50);
-})
+var table = new Tabulator("#example-table", {
+    height: "311px",
+    columns: [
+        { title: "Name", field: "name" },
+        { title: "Progress", field: "progress", sorter: "number" },
+        { title: "Gender", field: "gender" },
+        { title: "Rating", field: "rating" },
+        { title: "Favourite Color", field: "col" },
+        { title: "Date Of Birth", field: "dob", hozAlign: "center" },
+    ],
+});

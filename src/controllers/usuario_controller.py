@@ -8,12 +8,7 @@ from flask import render_template
 
 
 def mostrar_userinfo():
-    cant_usuarios = str(len(Usuario.query.all()))
-    sedes = db.session.query(Usuario.city, func.count(
-        Usuario.id)).group_by(Usuario.city).all()
-    cant_sedes = len(sedes)
-    print("La cantidad de sedes es:", sedes[2][1])
-    return render_template("info.html", total_usuarios=cant_usuarios, total_sedes=cant_sedes)
+    return render_template("courses.html")
 
 
 def mostrar_landing():
