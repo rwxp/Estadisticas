@@ -3,7 +3,6 @@
   padding:0;
   margin:0;
   font-family:'Montserrat', sans-serif;
-  color: white;
   text-decoration: none;
 }
 #landing {
@@ -34,6 +33,7 @@ html, body{
 }
 
 #texto-bienvenida{
+  color: white;
   margin-bottom: 3%;
 }
 
@@ -131,6 +131,10 @@ nav li{
 
 .moreinfo i{
   font-size: 5em;
+}
+
+a{
+  color:white 
 }
 
 @media(max-width: 57.5em){
