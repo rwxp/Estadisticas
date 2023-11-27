@@ -1,6 +1,6 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from src.routes.usuario_routes import usuarios_blueprint
+from src.routes.routes import app_blueprint
+from src.routes.course_routes import course_blueprint
 from config import config
 
 
@@ -8,8 +8,8 @@ def create_app():
     app = Flask(__name__, template_folder='src/templates')
     app.config.from_object(config['development'])  # o config['production'] para producción
 
-    app.register_blueprint(usuarios_blueprint)
-
+    app.register_blueprint(app_blueprint)
+    app.register_blueprint(course_blueprint)
     return app
 
 app = create_app()
