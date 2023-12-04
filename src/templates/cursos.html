@@ -1,37 +1,94 @@
 {% extends "/layouts/layout.html" %}{% block aditional %}
 
 <body>
-  <label for="selectAnio">Selecciona un año:</label>
-  <select id="selectAnio" name="selectAnio">
-    <option value="2010">2010</option>
-    <option value="2011">2011</option>
-    <option value="2012">2012</option>
-    <option value="2013">2013</option>
-    <option value="2014">2014</option>
-    <option value="2015">2015</option>
-    <option value="2016">2016</option>
-    <option value="2017">2017</option>
-    <option value="2018">2018</option>
-    <option value="2019">2019</option>
-    <option value="2020">2020</option>
-    <option value="2021">2021</option>
-    <option value="2022">2022</option>
-    <option value="2023">2023</option>
-  </select>
-  <div>
-    <button id="download-csv">Download CSV</button>
-    <button id="download-json">Download JSON</button>
-    <button id="download-xlsx">Download XLSX</button>
-    <button id="download-pdf">Download PDF</button>
-    <button id="download-html">Download HTML</button>
+  <div class="container mt-4">
+    <div class="row">
+      <div class="column">
+        <label id="labelAnio" for="selectAnio">Selecciona un año </label>
+      </div>
+      <div class="column">
+        <select class="form-select form-select-lg mb-3" id="selectAnio" name="selectAnio">
+          <option value="2010">2010</option>
+          <option value="2011">2011</option>
+          <option value="2012">2012</option>
+          <option value="2013">2013</option>
+          <option value="2014">2014</option>
+          <option value="2015">2015</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+        </select>
+      </div>
+    </div>
   </div>
-  <div id="example-table" style="color: black"></div>
-  <!-- Puedes añadir más elementos HTML y JavaScript según sea necesario -->
-  <h1>La cantidad de cursos es : </h1>
+
+
+  </div>
+  <div class="container">
+    <div class="card text-bg-danger mb-3 mt-4" style="max-width: 100rem;">
+      <div class="card-body red-custom-card">
+        <h5 class="card-title" id="cursos-totales">{{total_cursos}}</h5>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="card text-bg-light mb-3 mt-0" style="max-width: 100rem;">
+      <div class="card-body light-custom-card">
+        <h5 class="card-title" id="cursos-anuales">{{cantidad_cursos}}</h5>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div id="chart1"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="chart2"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-center">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="example-table1" style="color: black"></div>
+        <button class="download-csv">Download CSV</button>
+        <button class="download-json">Download JSON</button>
+        <button class="download-xlsx">Download XLSX</button>
+        <button class="download-pdf">Download PDF</button>
+        <button class="download-html">Download HTML</button>
+      </div>
+      <div class="col-md-6">
+        <div class="example-table2" style="color: black"></div>
+        <button class="download-csv">Download CSV</button>
+        <button class="download-json">Download JSON</button>
+        <button class="download-xlsx">Download XLSX</button>
+        <button class="download-pdf">Download PDF</button>
+        <button class="download-html">Download HTML</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
 <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
 <script src="../../static/script.js"></script>
+<script src="../../static/cursos.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+  var graph1 = {{ fig_json | safe }};
+  Plotly.plot("chart1", graph1, {})
+</script>
+<script>
+  var graph2 = {{ fig2_json | safe }};
+  Plotly.plot("chart2", graph2, {})
+</script>
 {% endblock %}

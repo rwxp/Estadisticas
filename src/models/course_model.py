@@ -13,19 +13,39 @@ def conectar():
 def contar_cursos(year):
     conexion = conectar()
     cursor = conexion.cursor()
-    # consulta = "SELECT DISTINCT COUNT(*) FROM dim_cursos_activos WHERE Year = %s"
-    consulta = "SELECT * FROM dim_cursos_activos"
-    cursor.execute(consulta, ( str(year), )) 
+    consulta = 'SELECT * FROM dim_cursos_activos WHERE year=%s'
+    year = str(year)
+    cursor.execute(consulta, ( year,) ) 
     resultados = cursor.fetchall()
     cursor.close()
     return len(resultados)
 
-# Se encarga de traer todos los cursos activos teniendo en cuenta el year y una sede.
-# def traer_cursos(year, sede):
-#     conexion = conectar()
-#     cursor = conexion.cursor()
-#     consulta = "SELECT * FROM dim_cursos_activos WHERE year=%s AND sede=%s"
-#     cursor.execute(consulta, ( year, sede))
-#     resultados = cursor.fetchall()
-#     cursor.close()
-#     return resultado
+def contar_total_cursos():
+    conexion = conectar()
+    cursor = conexion.cursor()
+    consulta = 'SELECT DISTINCT COUNT(*) FROM dim_cursos_activos'
+    cursor.execute(consulta)
+    resultados = cursor.fetchall()
+    cursor.close()
+    return resultados[0][0]
+
+
+def contar_cursos_sedes(year):
+    conexion = conectar()
+    cursor = conexion.cursor()
+    consulta = 'SELECT sede, COUNT(DISTINCT (id)) FROM dim_cursos_activos WHERE year=%s GROUP BY(sede)' 
+    year = str(year)
+    cursor.execute(consulta, ( year,) ) 
+    resultados = cursor.fetchall()
+    cursor.close()
+    return resultados
+
+def contar_cursos_facultad(year):
+    conexion = conectar()
+    cursor = conexion.cursor()
+    consulta = 'SELECT sede, COUNT(DISTINCT (id)) FROM dim_cursos_activos WHERE year=%s GROUP BY(sede)' 
+    year = str(year)
+    cursor.execute(consulta, ( year,) ) 
+    resultados = cursor.fetchall()
+    cursor.close()
+    return resultados
