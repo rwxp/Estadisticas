@@ -1,4 +1,5 @@
 import psycopg2
+from flask import render_template
 
 def conectar():
     connection = psycopg2.connect(
@@ -8,19 +9,52 @@ def conectar():
     password="postgres")
     return connection
 
-
-def traer_usuarios(year, sede):
+# Se encarga de contar tods los usuaris activos de un anhio particular.
+def contar_usuarios(year):
     conexion = conectar()
     cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM dim_user WHERE year  LIMIT 100" )
+    consulta = 'SELECT * FROM dim_user WHERE year=%s'
+    year = str(year)
+    cursor.execute(consulta, ( year,) )
+    resultados = cursor.fetchall()
+    cursor.close()
+    return len(resultados)
+
+def contar_total_usuarios():
+    conexion = conectar()
+    cursor = conexion.cursor()
+    consulta = 'SELECT DISTINCT COUNT(*) FROM dim_user'
+    cursor.execute(consulta)
+    resultados = cursor.fetchall()
+    cursor.close()
+    return resultados[0][0]
+
+
+def contar_usuarios_sedes(year):
+    conexion = conectar()
+    cursor = conexion.cursor()
+    consulta = 'SELECT sede, COUNT(DISTINCT (id)) FROM dim_user WHERE year=%s GROUP BY(sede)'
+    year = str(year)
+    cursor.execute(consulta, ( year,) )
     resultados = cursor.fetchall()
     cursor.close()
     return resultados
 
-def contar_usuarios():
+def contar_usuarios_facultad(year):
     conexion = conectar()
     cursor = conexion.cursor()
-    cursor.execute("SELECT COUNT(*) FROM dim_estudiantes_activos" )
+    consulta = 'SELECT sede, COUNT(DISTINCT (id)) FROM dim_user WHERE year=%s GROUP BY(sede)'
+    year = str(year)
+    cursor.execute(consulta, ( year,) )
     resultados = cursor.fetchall()
     cursor.close()
     return resultados
+
+def contar_estudiantes_activos():
+    conexion = conectar()
+    cursor = conexion.cursor()
+    consulta = 'SELECT COUNT(*) FROM dim_estudiantes_activos'
+    cursor.execute(consulta)
+    resultados = cursor.fetchall()
+    cursor.close()
+    return resultados[0][0]

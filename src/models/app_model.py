@@ -1,12 +1,9 @@
 from flask import render_template
 from src.controllers.course_controller import count_cursos, count_total_cursos, count_sedes, count_facultades
-<<<<<<< HEAD
+from src.controllers.user_controller import count_usuarios, count_total_usuarios, count_usuarios_sedes, count_usuarios_facultades
 import json
 import plotly
 import plotly_express as px
-=======
-from src.routes.course_routes import generar_grafico_sedes, generar_grafico_facultades
->>>>>>> 1796fdc1d352a0381434b50ef5b319472c695a10
 
 def mostrar_landing():
     return render_template("landing.html")
@@ -14,10 +11,9 @@ def mostrar_landing():
 def mostrar_cursos():
     cantidad_cursos =  str(count_cursos()) + " cursos creados en el 2023"
     total_cursos =  str(count_total_cursos()) + " cursos en total"
-    fig_json = generar_grafico_sedes(2023)
-    fig2_json = generar_grafico_facultades(2023)
+    fig_json = generar_grafico_sedes()
+    fig2_json = generar_grafico_facultades()
     return render_template("cursos.html", cantidad_cursos=cantidad_cursos, total_cursos=total_cursos, fig_json=fig_json, fig2_json=fig2_json)
-<<<<<<< HEAD
 
 def generar_grafico_sedes( year=2023):
     conteo_sedes = count_sedes()
@@ -38,10 +34,8 @@ def generar_grafico_facultades(year=2023):
 #Usuarios
 
 def mostrar_usuarios():
-    cantidad_cursos =  str(count_cursos()) + " cursos creados en el 2023"
-    total_cursos =  str(count_total_cursos()) + " cursos en total"
+    cantidad_cursos =  str(count_usuarios()) + " cursos creados en el 2023"
+    total_cursos =  str(count_total_usuarios()) + " cursos en total"
     fig_json = generar_grafico_sedes()
     fig2_json = generar_grafico_facultades()
     return render_template("user.html", cantidad_cursos=cantidad_cursos, total_cursos=total_cursos, fig_json=fig_json, fig2_json=fig2_json)
-=======
->>>>>>> 1796fdc1d352a0381434b50ef5b319472c695a10
