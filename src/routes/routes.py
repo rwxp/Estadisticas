@@ -1,6 +1,6 @@
 
 from flask import Blueprint
-from src.controllers.app_controller import render_landing, render_cursos
+from src.controllers.app_controller import render_landing, render_cursos, render_usuarios
 
 app_blueprint = Blueprint('app_blueprint', __name__)
 
@@ -11,3 +11,6 @@ app_blueprint.add_url_rule(
 
 app_blueprint.add_url_rule(
      '/cursos', 'render_cursos', render_cursos)
+
+app_blueprint.add_url_rule(
+    '/usuarios', 'render_usuarios', render_usuarios)
