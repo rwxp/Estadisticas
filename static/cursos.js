@@ -12,10 +12,26 @@ document.addEventListener('DOMContentLoaded', function () {
 document.getElementById('selectAnio').addEventListener('change', function () {
     var selectedYear = this.value;
     actualizarInformacion(selectedYear);
+    actualizarGraficos(selectedYear);
 });
 
 function actualizarInformacion(anioSeleccionado) {
     fetch("http://localhost:5000/contar_cursos/" + anioSeleccionado)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('cursos-anuales').innerHTML = data.cantidad_de_cursos + ' cursos creados en el ' + anioSeleccionado;
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function actualizarGraficos(anioSeleccionado) {
+    fetch("http://localhost:5000/grafico_sedes/" + anioSeleccionado)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('cursos-anuales').innerHTML = data.cantidad_de_cursos + ' cursos creados en el ' + anioSeleccionado;
+        })
+        .catch(error => console.error('Error:', error));
+    fetch("http://localhost:5000/grafico_sedes/" + anioSeleccionado)
         .then(response => response.json())
         .then(data => {
             document.getElementById('cursos-anuales').innerHTML = data.cantidad_de_cursos + ' cursos creados en el ' + anioSeleccionado;

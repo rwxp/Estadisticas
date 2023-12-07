@@ -1,24 +1,34 @@
-
-var tableData = [
-    { id: 1, name: "Billy Bob", age: "12", gender: "male", height: 1, col: "red", dob: "", cheese: 1 },
-    { id: 2, name: "Mary May", age: "1", gender: "female", height: 2, col: "blue", dob: "14/05/1982", cheese: true },
-]
-
+function obtenerDatos(ruta, opciones) {
+    fetch(ruta, opciones)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error en la peticion  ${response.status}`)
+            }
+            return response.json();
+        }).then(data => {
+            console.log('Datos recibidos', data);
+        }).catch(err => {
+            console.error('Error en la peticion', err.message)
+        })
+}
 var table1 = new Tabulator(".example-table1", {
-    data: tableData, //set initial table data
+    data: obtenerDatos('http://localhost:5000/conteo_sedes/year',
+        opciones = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }
+    ),
     columns: [
-        { title: "Name", field: "name" },
-        { title: "Age", field: "age" },
-        { title: "Gender", field: "gender" },
-        { title: "Height", field: "height" },
-        { title: "Favourite Color", field: "col" },
-        { title: "Date Of Birth", field: "dob" },
-        { title: "Cheese Preference", field: "cheese" },
+        { title: "Nombre de la sede", field: "sede" },
+        { title: "Cantidad de cursos creados", field: "cursos" },
     ],
 });
+
 
 var table2 = new Tabulator(".example-table2", {
-    data: tableData, //set initial table data
+    data: "pendiente",
     columns: [
         { title: "Name", field: "name" },
         { title: "Age", field: "age" },
@@ -29,8 +39,6 @@ var table2 = new Tabulator(".example-table2", {
         { title: "Cheese Preference", field: "cheese" },
     ],
 });
-table1.setHeight(240); //set table height to 500px
-table2.setHeight(240); //set table height to 500px
 //trigger download of data.csv file
 document.querySelector(".download-csv").addEventListener("click", function () {
     table1.download("csv", "data.csv");

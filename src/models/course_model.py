@@ -38,9 +38,10 @@ def contar_cursos_sedes(year):
     cursor.execute(consulta, ( year,) ) 
     resultados = cursor.fetchall()
     cursor.close()
+    print(resultados)
     return resultados
 
-def contar_cursos_facultad(year):
+def contar_cursos_facultades(year):
     conexion = conectar()
     cursor = conexion.cursor()
     consulta = 'SELECT sede, COUNT(DISTINCT (id)) FROM dim_cursos_activos WHERE year=%s GROUP BY(sede)' 
