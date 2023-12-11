@@ -5,7 +5,7 @@ import plotly
 import plotly_express as px
 from src.routes.course_routes import generar_grafico_sedes, generar_grafico_facultades
 from src.routes.user_routes import generar_grafico_usuarios_sedes, generar_grafico_usuarios_facultades
-from src.controllers.user_controller import count_usuarios, count_total_usuarios, count_sedes, count_facultades
+from src.controllers.user_controller import count_usuarios, count_total_usuarios, count_sedes, count_facultades, count_usuarios_activos
 
 def mostrar_landing():
     return render_template("landing.html")
@@ -20,6 +20,7 @@ def mostrar_cursos():
 def mostrar_usuarios():
     cantidad_usuarios =  str(count_usuarios()) + " Usuarios creados en el 2023"
     total_usuarios =  str(count_total_usuarios()) + " Usuariso en total"
+    total_usuarios_activos = str(count_usuarios_activos()) + " Usuarios activos"
     fig_json = generar_grafico_usuarios_sedes(2023)
     fig2_json = generar_grafico_usuarios_facultades(2023)
-    return render_template("user.html", cantidad_usuarios=cantidad_usuarios, total_usuarios=total_usuarios, fig_json=fig_json, fig2_json=fig2_json)
+    return render_template("user.html", cantidad_usuarios=cantidad_usuarios, total_usuarios=total_usuarios, total_usuarios_activos=total_usuarios_activos,fig_json=fig_json, fig2_json=fig2_json)

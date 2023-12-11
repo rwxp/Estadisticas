@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from src.controllers.user_controller import count_usuarios, count_total_usuarios, count_sedes, count_facultades
+from src.controllers.user_controller import count_usuarios, count_total_usuarios, count_sedes, count_facultades, count_usuarios_activos
 import json
 import plotly
 import plotly_express as px
@@ -16,6 +16,11 @@ def usuarios():
     total_usuarios = count_total_usuarios()
     return jsonify({'total_usuarios': total_usuarios})
 
+@user_blueprint.route('/contar_usuarios', methods=['GET'])
+def usuarios_activos():
+    total_usuarios_activos = count_usuarios_activos()
+    return jsonify({'total_usuarios_activos': total_usuarios_activos})
+
 @user_blueprint.route('/conteo_usuarios_sedes/<int:year>', methods=['GET'])
 def usuarios_sedes(year):
     conteo_sedes = count_sedes(year)
@@ -25,6 +30,7 @@ def usuarios_sedes(year):
 def usuarios_facultades(year):
     conteo_facultades = count_facultades(year)
     return jsonify({'conteo_facultades': conteo_facultades})
+
 
 @user_blueprint.route('/grafico_usuarios_sedes/<int:year>', methods=['GET'])
 def generar_grafico_usuarios_sedes(year):
