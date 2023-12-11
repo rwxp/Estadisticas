@@ -19,27 +19,19 @@ def cursos():
 @course_blueprint.route('/conteo_sedes/<int:year>', methods=['GET'])
 def cursos_sedes(year):
     conteo_sedes = count_sedes(year)
-    return jsonify({'conteo_sedes': conteo_sedes})
+    x_values = []
+    y_values = []
+    for sede in conteo_sedes:
+        x_values.append(sede[0])
+        y_values.append(sede[1])
+    return jsonify({'x_values': x_values, 'y_values': y_values})
 
 @course_blueprint.route('/conteo_facultades/<int:year>', methods=['GET'])
 def cursos_facultades(year):
     conteo_facultades = count_facultades(year)
-    return jsonify({'conteo_facultades': conteo_facultades})
-
-@course_blueprint.route('/grafico_sedes/<int:year>', methods=['GET'])
-def generar_grafico_sedes(year):
-    conteo_sedes = count_sedes(year)
-    x_values = [result[0] for result in conteo_sedes]
-    y_values = [result[1] for result in conteo_sedes]
-    fig = px.bar(conteo_sedes, x= x_values, y=y_values, title=f"Cursos por sede, Universidad del Valle, año {year}")
-    fig_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    return fig_json
-
-@course_blueprint.route('/grafico_facultades/<int:year>', methods=['GET'])
-def generar_grafico_facultades(year):
-    conteo_facultades = count_facultades()
-    x_values = [result[0] for result in conteo_facultades]
-    y_values = [result[1] for result in conteo_facultades]
-    fig = px.bar(conteo_facultades, x= x_values, y=y_values, title=f"Cursos por facultad, Universidad del Valle, año {year}")
-    fig2_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    return fig2_json
+    x_values = []
+    y_values = []
+    for facultad in conteo_facultades:
+        x_values.append(facultad[0])
+        y_values.append(facultad[1])
+    return jsonify({'x_values': x_values, 'y_values': y_values})

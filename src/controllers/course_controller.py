@@ -10,8 +10,8 @@ def count_total_cursos():
     return total_cursos
 
 def count_sedes(year = 2023):
-    cursos_sedes = contar_cursos_sedes(year)
-    return cursos_sedes
+    datos_sedes = contar_cursos_sedes(year)
+    return datos_sedes
 
 def count_facultades(year = 2023):
     cursos_facultades = contar_cursos_facultades(year)
