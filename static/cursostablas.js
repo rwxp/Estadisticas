@@ -49,6 +49,7 @@ async function actualizarSedes(year) {
         }
         , 'sedes')
     var tableSedes = new Tabulator(".tabla-sedes", {
+        layout: "fitColumns",
         data: datos,
         columns: [
             { title: "Nombre de la sede", field: "sede" },
@@ -69,6 +70,7 @@ async function actualizarFacultades(year) {
         }
         , 'facultades')
     var tableFacultades = new Tabulator(".tabla-facultades", {
+        layout: "fitColumns",
         data: datos,
         columns: [
             { title: "Nombre de la facultad", field: "facultad" },
