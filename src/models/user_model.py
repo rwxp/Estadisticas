@@ -9,11 +9,11 @@ def conectar():
     password="postgres")
     return connection
 
-# Se encarga de contar tods los usuaris activos de un anhio particular.
+# Se encarga de contar tods los cursos activos de un anhio particular.
 def contar_usuarios(year):
     conexion = conectar()
     cursor = conexion.cursor()
-    consulta = 'SELECT * FROM dim_user WHERE year=%s'
+    consulta = 'SELECT * FROM dim_users WHERE year=%s'
     year = str(year)
     cursor.execute(consulta, ( year,) )
     resultados = cursor.fetchall()
@@ -23,7 +23,7 @@ def contar_usuarios(year):
 def contar_total_usuarios():
     conexion = conectar()
     cursor = conexion.cursor()
-    consulta = 'SELECT DISTINCT COUNT(*) FROM dim_user'
+    consulta = 'SELECT DISTINCT COUNT(*) FROM dim_users'
     cursor.execute(consulta)
     resultados = cursor.fetchall()
     cursor.close()
@@ -33,24 +33,25 @@ def contar_total_usuarios():
 def contar_usuarios_sedes(year):
     conexion = conectar()
     cursor = conexion.cursor()
-    consulta = 'SELECT sede, COUNT(DISTINCT (id)) FROM dim_user WHERE year=%s GROUP BY(sede)'
+    consulta = 'SELECT SEDE, COUNT(DISTINCT (id)) FROM dim_users WHERE year=%s GROUP BY(SEDE)'
     year = str(year)
     cursor.execute(consulta, ( year,) )
     resultados = cursor.fetchall()
     cursor.close()
+    print(resultados)
     return resultados
 
-def contar_usuarios_facultad(year):
+def contar_usuarios_facultades(year):
     conexion = conectar()
     cursor = conexion.cursor()
-    consulta = 'SELECT sede, COUNT(DISTINCT (id)) FROM dim_user WHERE year=%s GROUP BY(sede)'
+    consulta = 'SELECT SEDE, COUNT(DISTINCT (id)) FROM dim_users WHERE year=%s GROUP BY(SEDE)'
     year = str(year)
     cursor.execute(consulta, ( year,) )
     resultados = cursor.fetchall()
     cursor.close()
     return resultados
 
-def contar_estudiantes_activos():
+def contar_usuarios_activos():
     conexion = conectar()
     cursor = conexion.cursor()
     consulta = 'SELECT COUNT(*) FROM dim_estudiantes_activos'
