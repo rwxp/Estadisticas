@@ -39,9 +39,16 @@ function actualizarGraficos(anioSeleccionado) {
             }])
         }).catch(error => console.error('Error:', error));
     // Figura 2 
-    // fetch("http://localhost:5000/grafico_facultades/" + anioSeleccionado)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log("El data es ", data)
-    //     }).catch(error => console.error('Error:', error));
+    fetch("http://localhost:5000/conteo_facultades/" + anioSeleccionado)
+        .then(response => response.json())
+        .then(data => {
+            x_values = data.x_values
+            y_values = data.y_values
+            chart = document.getElementById('chart2')
+            Plotly.newPlot(chart, [{
+                type: 'bar',
+                x: x_values,
+                y: y_values
+            }])
+        }).catch(error => console.error('Error:', error));
 }
