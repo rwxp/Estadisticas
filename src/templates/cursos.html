@@ -57,7 +57,7 @@
   <div class="container text-center">
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <div class="example-table1" style="color: black"></div>
+        <div class="tabla-sedes" style="color: black"></div>
         <button class="download-csv">Download CSV</button>
         <button class="download-json">Download JSON</button>
         <button class="download-xlsx">Download XLSX</button>
@@ -65,7 +65,7 @@
         <button class="download-html">Download HTML</button>
       </div>
       <div class="col-md-6">
-        <div class="example-table2" style="color: black"></div>
+        <div class="tabla-facultades" style="color: black"></div>
         <button class="download-csv">Download CSV</button>
         <button class="download-json">Download JSON</button>
         <button class="download-xlsx">Download XLSX</button>
@@ -80,15 +80,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.20/jspdf.plugin.autotable.min.js"></script>
 <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
 <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
-<script src="../../static/script.js"></script>
-<script src="../../static/cursos.js"></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script>
-  var graph1 = {{ fig_json | safe }};
-  Plotly.plot("chart1", graph1, {})
-</script>
-<script>
-  var graph2 = {{ fig2_json | safe }};
-  Plotly.plot("chart2", graph2, {})
-</script>
+<script src="../../static/cursosgraficos.js"></script>
+<script src="../../static/cursostablas.js"></script>
 {% endblock %}
