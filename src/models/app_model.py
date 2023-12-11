@@ -18,8 +18,8 @@ def mostrar_cursos():
     return render_template("cursos.html", cantidad_cursos=cantidad_cursos, total_cursos=total_cursos, fig_json=fig_json, fig2_json=fig2_json)
 
 def mostrar_usuarios():
-    cantidad_usuarios =  str(count_usuarios()) + " cursos creados en el 2023"
-    total_usuarios =  str(count_total_usuarios()) + " cursos en total"
+    cantidad_usuarios =  str(count_usuarios()) + " Usuarios creados en el 2023"
+    total_usuarios =  str(count_total_usuarios()) + " Usuariso en total"
     fig_json = generar_grafico_usuarios_sedes(2023)
     fig2_json = generar_grafico_usuarios_facultades(2023)
     return render_template("user.html", cantidad_usuarios=cantidad_usuarios, total_usuarios=total_usuarios, fig_json=fig_json, fig2_json=fig2_json)
