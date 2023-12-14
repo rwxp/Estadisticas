@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var selectElement = document.getElementById('selectAnio');
+    var selectElement = document.getElementById('anioSelect');
     selectElement.value = '2023';
     actualizarSedes(selectElement.value)
-    actualizarFacultades(selectElement.value)
+    //actualizarFacultades(selectElement.value)
 });
 
-document.getElementById('selectAnio').addEventListener('change', function () {
+document.getElementById('anioSelect').addEventListener('change', function () {
     var selectedYear = this.value;
     actualizarSedes(selectedYear);
-    actualizarFacultades(selectedYear);
+    //actualizarFacultades(selectedYear);
 });
 
 async function obtenerDatos(ruta, opciones, tipo) {
@@ -18,21 +18,20 @@ async function obtenerDatos(ruta, opciones, tipo) {
         if (!response.ok) {
             throw new Error(`Error en la peticion ${response.status}`);
         }
-        var datos
+        var datos;
         const data = await response.json();
         console.log(data)
         if (tipo == 'sedes') {
-            datos = data.x_values.map((x_value, i) => ({
-                sede: x_value,
-                cursos: data.y_values[i],
+            datos = data.x_values.map((x_values, i) => ({
+                sede: x_values,
+                usuarios: data.y_values[i],
             }));
         } else {
-            datos = data.x_values.map((x_value, i) => ({
-                facultad: x_value,
-                cursos: data.y_values[i],
+            datos = data.x_values.map((x_values, i) => ({
+                facultad: x_values,
+                usuarios: data.y_values[i],
             }));
         }
-        console.log(datos)
         return datos;
     } catch (err) {
         console.error('Error en la peticion', err.message);
@@ -42,7 +41,7 @@ async function obtenerDatos(ruta, opciones, tipo) {
 
 async function actualizarSedes(year) {
     const datos = await obtenerDatos(
-        `http://localhost:5000/conteo_sedes/${year}`,
+        `http://localhost:5000/conteo_usuarios_sedes/${year}`,
         {
             method: 'GET',
             headers: {
@@ -50,20 +49,20 @@ async function actualizarSedes(year) {
             }
         }
         , 'sedes')
-    var tableSedes = new Tabulator(".tabla-sedes", {
+    var tableSedes = new Tabulator(".tabla-usuarios-sedes", {
         layout: "fitColumns",
         data: datos,
         columns: [
             { title: "Nombre de la sede", field: "sede" },
-            { title: "Cantidad de cursos creados", field: "cursos" },
+            { title: "Cantidad de usuarios creados", field: "usuarios" },
         ],
     })
     agregarBotones(tableSedes);
 }
-
+/*
 async function actualizarFacultades(year) {
     const datos = await obtenerDatos(
-        `http://localhost:5000/conteo_facultades/${year}`,
+        `http://localhost:5000/conteo_usuarios_facultades/${year}`,
         {
             method: 'GET',
             headers: {
@@ -71,16 +70,16 @@ async function actualizarFacultades(year) {
             }
         }
         , 'facultades')
-    var tableFacultades = new Tabulator(".tabla-facultades", {
+    var tableFacultades = new Tabulator(".tabla-usuarios-facultades", {
         layout: "fitColumns",
         data: datos,
         columns: [
             { title: "Nombre de la facultad", field: "facultad" },
-            { title: "Cantidad de cursos creados", field: "cursos" },
+            { title: "Cantidad de usuarios creados", field: "usuarios" },
         ],
     })
     agregarBotones(tableFacultades);
-}
+}*/
 
 function agregarBotones(table) {
     //trigger download of data.csv file

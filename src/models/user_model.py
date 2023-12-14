@@ -33,18 +33,17 @@ def contar_total_usuarios():
 def contar_usuarios_sedes(year):
     conexion = conectar()
     cursor = conexion.cursor()
-    consulta = 'SELECT SEDE, COUNT(DISTINCT (id)) FROM dim_users WHERE year=%s GROUP BY(SEDE)'
+    consulta = 'SELECT sede, COUNT(DISTINCT (id)) FROM dim_users WHERE year=%s GROUP BY(sede)'
     year = str(year)
     cursor.execute(consulta, ( year,) )
     resultados = cursor.fetchall()
     cursor.close()
-    print(resultados)
     return resultados
 
 def contar_usuarios_facultades(year):
     conexion = conectar()
     cursor = conexion.cursor()
-    consulta = 'SELECT SEDE, COUNT(DISTINCT (id)) FROM dim_users WHERE year=%s GROUP BY(SEDE)'
+    consulta = 'SELECT sede, COUNT(DISTINCT (id)) FROM dim_users WHERE year=%s GROUP BY(sede)'
     year = str(year)
     cursor.execute(consulta, ( year,) )
     resultados = cursor.fetchall()

@@ -14,8 +14,8 @@ def count_sedes(year = 2023):
     return usuarios_sedes
 
 def count_facultades(year = 2023):
-    usuarios_sedes = contar_usuarios_sedes(year)
-    return usuarios_sedes
+    usuarios_facultades = contar_usuarios_sedes(year)
+    return usuarios_facultades
 
 def count_usuarios_activos():
     usuarios_activos = contar_usuarios_activos()

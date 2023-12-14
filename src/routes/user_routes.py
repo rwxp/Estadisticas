@@ -16,36 +16,28 @@ def usuarios():
     total_usuarios = count_total_usuarios()
     return jsonify({'total_usuarios': total_usuarios})
 
-@user_blueprint.route('/contar_usuarios', methods=['GET'])
+@user_blueprint.route('/contar_usuarios_activos', methods=['GET'])
 def usuarios_activos():
     total_usuarios_activos = count_usuarios_activos()
     return jsonify({'total_usuarios_activos': total_usuarios_activos})
 
+
 @user_blueprint.route('/conteo_usuarios_sedes/<int:year>', methods=['GET'])
-def usuarios_sedes(year):
-    conteo_sedes = count_sedes(year)
-    return jsonify({'usuarios_sedes': conteo_sedes})
-
-@user_blueprint.route('/conteo_usuarios_facultades/<int:year>', methods=['GET'])
-def usuarios_facultades(year):
-    conteo_facultades = count_facultades(year)
-    return jsonify({'conteo_facultades': conteo_facultades})
-
-
-@user_blueprint.route('/grafico_usuarios_sedes/<int:year>', methods=['GET'])
 def generar_grafico_usuarios_sedes(year):
     conteo_sedes = count_sedes(year)
-    x_values = [result[0] for result in conteo_sedes]
-    y_values = [result[1] for result in conteo_sedes]
-    fig = px.bar(conteo_sedes, x= x_values, y=y_values, title=f"Usuarios por sede, Universidad del Valle, año {year}")
-    fig_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    return fig_json
+    x_values = []
+    y_values = []
+    for sede in conteo_sedes:
+        x_values.append(sede[0])
+        y_values.append(sede[1])
+    return jsonify({'x_values': x_values, 'y_values': y_values})
 
-@user_blueprint.route('/grafico_usuarios_facultades/<int:year>', methods=['GET'])
+@user_blueprint.route('/conteo_usuarios_facultades/<int:year>', methods=['GET'])
 def generar_grafico_usuarios_facultades(year):
     conteo_facultades = count_facultades()
-    x_values = [result[0] for result in conteo_facultades]
-    y_values = [result[1] for result in conteo_facultades]
-    fig = px.bar(conteo_facultades, x= x_values, y=y_values, title=f"Usuarios por facultad, Universidad del Valle, año {year}")
-    fig2_json = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
-    return fig2_json
+    x_values = []
+    y_values = []
+    for facultad in conteo_facultades:
+        x_values.append(facultad[0])
+        y_values.append(facultad[1])
+    return jsonify({'x_values': x_values, 'y_values': y_values})
